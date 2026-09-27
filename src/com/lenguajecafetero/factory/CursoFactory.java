@@ -1,23 +1,16 @@
 package com.lenguajecafetero.factory;
 
 import com.lenguajecafetero.modelo.Curso;
-import com.lenguajecafetero.modelo.CursoPersonalizado;
 
-public class CursoPersonalizadoFactory extends CursoFactory {
-
-    @Override
-    public Curso crearCurso(DatosCurso datos) {
-        return new CursoPersonalizado(
-                datos.getCodigo(),
-                datos.getNombre(),
-                datos.getIdioma(),
-                datos.getDescripcion(),
-                datos.getDuracionMeses(),
-                datos.getValorMensual(),
-                datos.getCantidadSesiones(),
-                datos.getNivelReferencia(),
-                datos.getObjetivos(),
-                datos.getTarifaPorSesionProfesor()
-        );
-    }
+/**
+ * Patron Factory Method.
+ *
+ * En vez de que el resto de la aplicacion decida con un if/else o un
+ * switch que clase de Curso instanciar, cada tipo de curso tiene su
+ * propia fabrica. Si en el futuro la academia agrega un cuarto tipo
+ * de curso, basta con crear una nueva fabrica sin tocar el resto del
+ * sistema (principio abierto/cerrado).
+ */
+public abstract class CursoFactory {
+    public abstract Curso crearCurso(DatosCurso datos);
 }
