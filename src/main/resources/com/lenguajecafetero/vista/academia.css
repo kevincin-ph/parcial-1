@@ -1,0 +1,122 @@
+.root {
+    -fx-font-family: "Avenir Next";
+    -fx-font-size: 13px;
+    -fx-background-color: #f4f6f3;
+    -fx-text-fill: #1d2e29;
+}
+.app-shell { -fx-background-color: #f4f6f3; }
+.sidebar {
+    -fx-background-color: #173a32;
+    -fx-padding: 28 16 20 16;
+    -fx-spacing: 10;
+    -fx-pref-width: 232px;
+}
+.brand-mark {
+    -fx-background-color: #e3a35b;
+    -fx-background-radius: 9;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-alignment: center;
+    -fx-text-fill: #173a32;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+.brand-title { -fx-text-fill: #ffffff; -fx-font-size: 16px; -fx-font-weight: bold; }
+.brand-caption { -fx-text-fill: #a9c3b8; -fx-font-size: 9px; }
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #d2e0d9;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 11 13;
+    -fx-background-radius: 6;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+.nav-button:hover { -fx-background-color: #244e43; -fx-text-fill: white; }
+.nav-button.selected { -fx-background-color: #2c5b4e; -fx-text-fill: white; -fx-font-weight: bold; }
+.sidebar-note { -fx-text-fill: #9db8ad; -fx-font-size: 9px; }
+.topbar {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20 30 18 30;
+    -fx-border-color: transparent transparent #e1e7e1 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.page-title { -fx-font-size: 23px; -fx-font-weight: bold; -fx-text-fill: #173a32; }
+.page-subtitle { -fx-text-fill: #6f7d76; -fx-font-size: 11px; }
+.content-area { -fx-padding: 24 28 26 28; -fx-spacing: 18; }
+.section-title { -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #173a32; }
+.muted { -fx-text-fill: #68776f; -fx-font-size: 11px; }
+.surface {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-border-color: #e1e7e1;
+    -fx-border-radius: 8;
+    -fx-padding: 18;
+}
+.metric-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-border-color: #e1e7e1;
+    -fx-border-radius: 8;
+    -fx-padding: 16;
+    -fx-min-width: 150;
+}
+.metric-value { -fx-text-fill: #173a32; -fx-font-size: 24px; -fx-font-weight: bold; }
+.metric-label { -fx-text-fill: #64746b; -fx-font-size: 10px; -fx-font-weight: bold; }
+.metric-accent { -fx-text-fill: #a45d3d; -fx-font-size: 10px; }
+.primary-button {
+    -fx-background-color: #b86442;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 10 15;
+    -fx-cursor: hand;
+}
+.primary-button:hover { -fx-background-color: #9f5034; }
+.secondary-button {
+    -fx-background-color: #e6eee8;
+    -fx-text-fill: #23483c;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 9 14;
+    -fx-cursor: hand;
+}
+.secondary-button:hover { -fx-background-color: #d5e4d9; }
+.text-field, .combo-box, .text-area, .date-picker {
+    -fx-background-color: #fbfcfa;
+    -fx-border-color: #d3ddd5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 8;
+    -fx-text-fill: #1d2e29;
+    -fx-prompt-text-fill: #95a19a;
+}
+.text-field:focused, .combo-box:focused, .text-area:focused { -fx-border-color: #6a9581; }
+.combo-box .list-cell { -fx-text-fill: #1d2e29; }
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e1e7e1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-table-cell-border-color: #edf0ed;
+    -fx-selection-bar: #e2eee7;
+    -fx-selection-bar-non-focused: #e2eee7;
+}
+.table-view .column-header-background { -fx-background-color: #edf2ed; }
+.table-view .column-header, .table-view .filler { -fx-background-color: transparent; -fx-size: 38; }
+.table-view .column-header .label { -fx-text-fill: #52635a; -fx-font-size: 10px; -fx-font-weight: bold; }
+.table-row-cell { -fx-cell-size: 40; -fx-background-color: #ffffff; }
+.table-row-cell:odd { -fx-background-color: #fbfcfa; }
+.table-row-cell:selected { -fx-background-color: #e2eee7; -fx-text-background-color: #173a32; }
+.table-cell { -fx-text-fill: #293a33; -fx-padding: 0 10; }
+.status-bar {
+    -fx-padding: 10 28;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e1e7e1 transparent transparent transparent;
+    -fx-text-fill: #64746b;
+    -fx-font-size: 10px;
+}
+.status-error { -fx-text-fill: #a44335; }
+.status-success { -fx-text-fill: #367654; }
+.scroll-pane, .scroll-pane > .viewport { -fx-background-color: transparent; }

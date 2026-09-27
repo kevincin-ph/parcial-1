@@ -1,18 +1,35 @@
-## Getting Started
+# Lenguaje Cafetero
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Aplicacion de gestion academica con patrones Factory Method, Prototype, Builder y Singleton. La interfaz de escritorio esta organizada en Modelo-Vista-Controlador (MVC) y utiliza JavaFX.
 
-## Folder Structure
+## Requisitos
 
-The workspace contains two folders by default, where:
+- JDK 21 o superior
+- Maven 3.8 o superior
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+Maven descarga JavaFX automaticamente; no es necesario instalar JavaFX en el JDK.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## Ejecutar la interfaz JavaFX
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+Desde la raiz del proyecto:
 
-## Dependency Management
+```sh
+mvn javafx:run
+```
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+La aplicacion inicia con datos de demostracion y permite registrar estudiantes, crear cursos regulares/intensivos/personalizados, generar matriculas con servicios y descuentos, registrar profesores y asignarlos a cursos personalizados. El resumen muestra el volumen de registros e ingresos del mes.
+
+## Arquitectura
+
+- `modelo`: entidades y reglas de negocio de la academia.
+- `controlador`: validacion y coordinacion entre la vista y el modelo.
+- `vista`: aplicacion JavaFX y componentes de interfaz.
+- `src/main/resources`: estilos visuales de JavaFX.
+
+La entrada de consola original `com.lenguajecafetero.Main` se conserva. La entrada grafica configurada en Maven es `com.lenguajecafetero.vista.AcademiaApplication`.
+
+## Compilar y probar
+
+```sh
+mvn test
+```
