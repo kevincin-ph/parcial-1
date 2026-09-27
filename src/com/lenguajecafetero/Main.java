@@ -11,6 +11,8 @@ import com.lenguajecafetero.modelo.Profesor;
 import com.lenguajecafetero.modelo.ServicioAdicional;
 import com.lenguajecafetero.modelo.Matricula;
 import com.lenguajecafetero.modelo.Academia;
+import com.lenguajecafetero.modelo.AsignacionProfesor;
+import com.lenguajecafetero.modelo.CursoPersonalizado;
 import com.lenguajecafetero.modelo.enums.NivelIdioma;
 
 import java.time.LocalDate;
@@ -98,5 +100,12 @@ public class Main {
 
         double ingresos = academia.calcularIngresos(LocalDate.now().minusDays(1), LocalDate.now().plusDays(1));
         System.out.println("Ingresos del periodo consultado: " + ingresos);
+
+        System.out.println("------------------------------------");
+
+        AsignacionProfesor asignacion = new AsignacionProfesor(
+                estudiante, (CursoPersonalizado) cursoPersonalizado, profesor);
+        academia.registrarAsignacion(asignacion);
+        System.out.println(asignacion);
     }
 }

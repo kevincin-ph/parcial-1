@@ -20,6 +20,7 @@ public class Academia {
     private List<Profesor> profesores;
     private List<ServicioAdicional> servicios;
     private List<Matricula> matriculas;
+    private List<AsignacionProfesor> asignaciones;
 
     private Academia() {
         this.estudiantes = new ArrayList<>();
@@ -27,6 +28,7 @@ public class Academia {
         this.profesores = new ArrayList<>();
         this.servicios = new ArrayList<>();
         this.matriculas = new ArrayList<>();
+        this.asignaciones = new ArrayList<>();
     }
 
     public static Academia getInstancia() {
@@ -66,6 +68,10 @@ public class Academia {
         matriculas.add(matricula);
     }
 
+    public void registrarAsignacion(AsignacionProfesor asignacion) {
+        asignaciones.add(asignacion);
+    }
+
     public Estudiante buscarEstudiantePorDocumento(String documento) {
         for (Estudiante estudiante : estudiantes) {
             if (estudiante.getDocumentoIdentidad().equals(documento)) {
@@ -93,4 +99,5 @@ public class Academia {
     public List<Profesor> getProfesores() { return profesores; }
     public List<ServicioAdicional> getServicios() { return servicios; }
     public List<Matricula> getMatriculas() { return matriculas; }
+    public List<AsignacionProfesor> getAsignaciones() { return asignaciones; }
 }
