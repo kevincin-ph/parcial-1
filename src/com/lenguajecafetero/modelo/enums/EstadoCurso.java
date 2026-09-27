@@ -1,0 +1,13 @@
+
+package com.lenguajecafetero.modelo.enums;
+ 
+/**
+ * Estados posibles en los que puede encontrarse un curso ofrecido
+ * por la academia.
+ */
+public enum EstadoCurso {
+    ACTIVO,
+    SUSPENDIDO,
+    FINALIZADO
+}
+ 
