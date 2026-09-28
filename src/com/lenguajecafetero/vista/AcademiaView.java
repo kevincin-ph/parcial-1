@@ -31,7 +31,9 @@ import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Locale;
 import java.util.function.Function;
 
@@ -43,6 +45,10 @@ public class AcademiaView extends BorderPane {
     private final Label pageSubtitle = new Label();
     private final Label status = new Label("Datos de demostracion cargados");
     private final NumberFormat currency = NumberFormat.getCurrencyInstance(new Locale("es", "CO"));
+
+    // Cada pagina se construye una sola vez y se reutiliza al volver a ella,
+    // asi las tablas y los formularios no se pierden al cambiar de seccion.
+    private final Map<String, javafx.scene.control.ScrollPane> paginas = new HashMap<>();
 
     private Label studentCount;
     private Label courseCount;
@@ -103,7 +109,6 @@ public class AcademiaView extends BorderPane {
             customCourseFields.setVisible(personalized);
         });
         showPage("Resumen");
-        refreshAll();
     }
 
     private Node buildSidebar() {
@@ -141,38 +146,24 @@ public class AcademiaView extends BorderPane {
 
     private void showPage(String section) {
         String subtitle;
-        Node content;
         switch (section) {
-            case "Estudiantes" -> {
-                subtitle = "Directorio y registro de estudiantes";
-                content = studentsPage();
-            }
-            case "Cursos" -> {
-                subtitle = "Catalogo, modalidades y valores";
-                content = coursesPage();
-            }
-            case "Matriculas" -> {
-                subtitle = "Inscripciones, servicios y cobros";
-                content = enrollmentsPage();
-            }
-            case "Equipo y asignaciones" -> {
-                subtitle = "Profesores y acompanamiento personalizado";
-                content = relationshipsPage();
-            }
+            case "Estudiantes" -> subtitle = "Directorio y registro de estudiantes";
+            case "Cursos" -> subtitle = "Catalogo, modalidades y valores";
+            case "Matriculas" -> subtitle = "Inscripciones, servicios y cobros";
+            case "Equipo y asignaciones" -> subtitle = "Profesores y acompanamiento personalizado";
             default -> {
                 section = "Resumen";
                 subtitle = "Vista general de la operacion academica";
-                content = dashboardPage();
             }
         }
-        pageTitle.setText(section);
         String selectedSection = section;
+        pageTitle.setText(section);
         pageSubtitle.setText(subtitle);
-        pageHost.getChildren().setAll(new javafx.scene.control.ScrollPane(content));
-        javafx.scene.control.ScrollPane scroll = (javafx.scene.control.ScrollPane) pageHost.getChildren().get(0);
-        scroll.setFitToWidth(true);
-        scroll.setHbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER);
-        scroll.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
+
+        javafx.scene.control.ScrollPane scroll = paginas.computeIfAbsent(section, this::crearPagina);
+        pageHost.getChildren().setAll(scroll);
+        refreshAll(); // muestra los datos actuales del modelo en la pagina elegida
+
         getLeft().lookupAll(".nav-button").forEach(node -> {
             Button button = (Button) node;
             if (button.getText().equals(selectedSection)) {
@@ -181,6 +172,21 @@ public class AcademiaView extends BorderPane {
                 button.getStyleClass().remove("selected");
             }
         });
+    }
+
+    private javafx.scene.control.ScrollPane crearPagina(String section) {
+        Node content = switch (section) {
+            case "Estudiantes" -> studentsPage();
+            case "Cursos" -> coursesPage();
+            case "Matriculas" -> enrollmentsPage();
+            case "Equipo y asignaciones" -> relationshipsPage();
+            default -> dashboardPage();
+        };
+        javafx.scene.control.ScrollPane scroll = new javafx.scene.control.ScrollPane(content);
+        scroll.setFitToWidth(true);
+        scroll.setHbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER);
+        scroll.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
+        return scroll;
     }
 
     private Node dashboardPage() {
@@ -334,7 +340,7 @@ public class AcademiaView extends BorderPane {
 
     private void saveStudent() {
         if (runAction(() -> controller.registrarEstudiante(studentName.getText(), studentDocument.getText(),
-                studentPhone.getText(), studentEmail.getText(), Integer.parseInt(studentAge.getText().trim())),
+                        studentPhone.getText(), studentEmail.getText(), Integer.parseInt(studentAge.getText().trim())),
                 "Estudiante registrado.")) {
             studentName.clear(); studentDocument.clear(); studentPhone.clear(); studentEmail.clear(); studentAge.clear();
         }
@@ -342,9 +348,9 @@ public class AcademiaView extends BorderPane {
 
     private void saveCourse() {
         if (runAction(() -> controller.crearCurso(courseType.getValue(), courseCode.getText(), courseName.getText(),
-                courseLanguage.getText(), courseDescription.getText(), Integer.parseInt(courseDuration.getText().trim()),
-                Double.parseDouble(courseMonthlyValue.getText().trim()), integerOrZero(courseSessions.getText()),
-                courseLevel.getValue(), courseObjectives.getText(), decimalOrZero(courseTeacherRate.getText())),
+                        courseLanguage.getText(), courseDescription.getText(), Integer.parseInt(courseDuration.getText().trim()),
+                        Double.parseDouble(courseMonthlyValue.getText().trim()), integerOrZero(courseSessions.getText()),
+                        courseLevel.getValue(), courseObjectives.getText(), decimalOrZero(courseTeacherRate.getText())),
                 "Curso agregado al catalogo.")) {
             courseCode.clear(); courseName.clear(); courseLanguage.clear(); courseDescription.clear();
             courseDuration.clear(); courseMonthlyValue.clear(); courseSessions.clear(); courseObjectives.clear(); courseTeacherRate.clear();
@@ -363,7 +369,7 @@ public class AcademiaView extends BorderPane {
 
     private void saveTeacher() {
         if (runAction(() -> controller.registrarProfesor(teacherId.getText(), teacherName.getText(),
-                teacherLanguage.getText(), teacherPhone.getText(), Double.parseDouble(teacherRate.getText().trim())),
+                        teacherLanguage.getText(), teacherPhone.getText(), Double.parseDouble(teacherRate.getText().trim())),
                 "Profesor registrado.")) {
             teacherId.clear(); teacherName.clear(); teacherLanguage.clear(); teacherPhone.clear(); teacherRate.clear();
         }
